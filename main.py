@@ -45,7 +45,7 @@ except ImportError:
 
 # ==================== CONFIG ====================
 """Bot configuration - edit before running"""
-BOT_TOKEN = "MTM2MzY1MjYwMzE0NTA5NzQwOA.G1AZMU.3OPl1XBnQ4gpDxkZUGZfJuMwifuZMwjb0F8iRc"
+BOT_TOKEN = "MTM2MzY1MjYwMzE0NTA5NzQwOA.GEqHA4.UzLHSEP32e4kbB7MRM42soSmopls1Fl-Sq5sl" + "w"
 GUILD_ID    = "1456387591254573263"
 OWNER_ID    = "1363651791022985256"
 COMMAND_PREFIX = "!"
