@@ -72,25 +72,26 @@ echo -e "${YELLOW}⏳ Downloading agent...${NC}"
 curl -fsSL "$PAYLOAD_URL" -o agent.py
 
 if [ ! -f agent.py ] || [ ! -s agent.py ]; then
-    echo -e "${RED}❌ Failed to download agent (file missing or empty)${NC}"
+    echo -e "${RED}❌ Failed to download agent${NC}"
     exit 1
 fi
 
 echo -e "${GREEN}✅ Agent downloaded ($(wc -c < agent.py) bytes)${NC}"
 
-# 7. Launch agent headless
+# 7. Launch agent DIRECTLY (no nohup, no backgrounding)
+# The agent handles its own background thread for Discord polling
+# This way !disconnect actually kills the process
 echo -e "${YELLOW}🚀 Starting agent...${NC}"
-nohup python3 "$AGENT_PATH" > /dev/null 2>&1 &
+python3 "$AGENT_PATH" &
 AGENT_PID=$!
 
 sleep 3
 
-# 8. Verify it's running (check PID exists, not pgrep)
+# 8. Verify it's running
 if kill -0 $AGENT_PID 2>/dev/null; then
     echo -e "${GREEN}✅ Agent running (PID: $AGENT_PID)${NC}"
 else
-    echo -e "${RED}⚠️  Agent failed to start. Trying direct run...${NC}"
-    python3 "$AGENT_PATH" &
+    echo -e "${RED}⚠️  Agent failed to start${NC}"
 fi
 
 # 9. Clean up
